@@ -43,7 +43,8 @@ myTriangle.anchorY = 0
 myTriangle.x = 60
 myTriangle.y = 60
 
--- write the name of the shape on the screen.Take into consideration the size of the text font on the screen.
+-- write the name of the shape on the screen.
+--Take into consideration the size of the text font on the screen.
 textObjectTriangle = display.newText("Triangle", 150, 350, Arial, textSize)
 
 --sets the color of the text
