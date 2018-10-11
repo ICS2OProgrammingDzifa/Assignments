@@ -24,6 +24,7 @@ local rocketship = display.newImageRect("Images/rocketship.png", 300, 200)
 rocketship.x = 600
 rocketship.y = display.contentHeight*1/3
 
+-- Creat a local image for a cat
 local cat = display.newImageRect("Images/cat.png", 300, 200)
 
 
@@ -38,6 +39,9 @@ cat.y = display.contentHeight*2/3
 local function MoveCuteDog(event)
 	-- add the scroll speed to the x-value of the cutedog
 	cutedog.x = cutedog.x + scrollSpeed
+
+	print(cutedog.x)
+
 	-- change the transparency of the cutedog every time it moves
 	-- so that it fades out.
 	cutedog.alpha = cutedog.alpha + 0.01
@@ -46,7 +50,7 @@ end
 -- MoveCuteDog will be called over and over again
 Runtime:addEventListener("enterFrame", MoveCuteDog)
 
-
+ 
 -- Function: MoveCat
 -- Input: this function accepts an event listener
 -- Output: none
@@ -82,9 +86,3 @@ Runtime:addEventListener("enterFrame", MoveRocketShip)
  -- displays text on the screen at the position x = 300 and y = 400 with
   -- a deafult font style and font size of 50
    textObjectSignature = display.newText( "by: Dzifa", 179, 255, nil, 50)
-
-
-
-
-
-
