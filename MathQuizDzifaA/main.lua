@@ -20,11 +20,11 @@ local secondsLeft = 10
 local clockText
 local countDownTimer
 
-local lives = 4 
+local lives = 3
 local heart1
 local heart2
 local heart3
-local heart4
+
 
 -- create local variables
 local questionObject
@@ -59,41 +59,33 @@ local gameSoundChannel
 
 local function UpdateHearts()
 
--- If lives are 4 then all hearts are visible
-	if (lives == 4) then
+-- If lives are 3 then all hearts are visible
+	if (lives == 3) then
    			heart1.isVisible = true
    			heart2.isVisible = true
    			heart3.isVisible = true
-   			heart4.isVisible = true
+   			
 
--- If lives are 3 then display 3 hearts and make one heart disapear
-   		elseif (lives == 3) then
-   			heart1.isVisible = true
-   			heart2.isVisible = true
-   			heart3.isVisible = true
-   			heart4.isVisible = false
-
--- If lives are 2 then display 2 hearts and make two hearts disapear
+-- If lives are 2 then display 2 hearts and make one heart disapear
    		elseif (lives == 2) then
    			heart1.isVisible = true
    			heart2.isVisible = true
    			heart3.isVisible = false
-   			heart4.isVisible = false
 
--- If lives are 1 then display one heart and make three hearts disapear
+-- If lives are 1 then display 1 hearts and make two hearts disapear
    		elseif (lives == 1) then
    			heart1.isVisible = true
    			heart2.isVisible = false
    			heart3.isVisible = false
-   			heart4.isVisible = false
+   			
 
 -- If lives are 0 then make all the hearts disapear
    		elseif (lives == 0) then
    			heart1.isVisible = false
    			heart2.isVisible = false
    			heart3.isVisible = false
-   			heart4.isVisible = false
-
+   			
+   			
 -- Display the game over image and play background music
    			gameOver.isVisible = true
    			gameSoundChannel = audio.play(gameSound)
@@ -109,20 +101,22 @@ end
 
 
 local function CheckPoints( )
-  -- monitor points till they reach 5
+-- monitor points till they reach 5
  if (numberOfPoints == 5) then
-  -- display the you win screen
+-- display the you win screen
   youWin.isVisible = true
+ end
+end
   
 local function UpdateTime()
-	-- decrement the number of seconds
+-- decrement the number of seconds
 	secondsLeft = secondsLeft - 1
 
-	-- display the number of seconds left in the clock object
+-- display the number of seconds left in the clock object
 	clockText.text = secondsLeft .. ""
 
 	if (secondsLeft == 0 ) then
-		-- It makes the seconds equal to the total amount of seconds left.
+-- It makes the seconds equal to the total amount of seconds left.
 		secondsLeft = totalSeconds
 		lives = lives - 1
 		UpdateHearts()
@@ -132,7 +126,7 @@ end
 
 -- function that calls the timer
 local function startTimer()
-	-- create a countdown timer that loops infinitely
+-- create a countdown timer that loops infinitely
 	countDownTimer = timer.performWithDelay( 1000, UpdateTime, 0)
 end
 
@@ -140,7 +134,7 @@ end
 
 
 local function AskQuestion()
-	-- generate 2 random numbers between a max. and a min. number
+-- generate 2 random numbers between a max. and a min. number
 	randomOperator = math.random(1,4)
 	randomNumber1 = math.random(1,20)
 	randomNumber2 = math.random(1,20)
@@ -148,31 +142,37 @@ local function AskQuestion()
 	randomNumber4 = math.random(1,100)
 
 
- 	-- if the random operater is one then do addition
- 	if (randomOperator == 1) then
+-- if the random operater is one then do addition
+	if (randomOperator == 1) then
  		-- 
  		correctAnswer = randomNumber1 + randomNumber2
+
 	
 		--create question text object
 		questionObject.text = randomNumber1 .. " + " .. randomNumber2 .. " = "
 
-	-- If it is 2 the do subtraction
+-- If it is 2 the do subtraction
 	elseif (randomOperator == 2) then
 	 	correctAnswer = randomNumber1 - randomNumber2
 
-		--create question text object
+--create question text object
 		questionObject.text = randomNumber1 .. " - " .. randomNumber2 .. " = "
-
+		if ( randomNumber1 < randomNumber2) then
+			correctAnswer = randomNumber2 - randomNumber1
+		elseif ( randomNumber2 < randomNumber1) then
+			correctAnswer = randomNumber1 - randomNumber2
+		end
 	elseif (randomOperator == 3) then
 	 	correctAnswer = randomNumber1 * randomNumber2
 
-		--create questionin text object
+--create questionin text object
 		questionObject.text = randomNumber1 .. " * " .. randomNumber2 .. " = "
 
 		elseif (randomOperator == 4) then
 	 	correctAnswer = randomNumber1 / randomNumber2
 
-		--create questionin text object
+
+--create questionin text object
 		questionObject.text = randomNumber1 .. " /" .. randomNumber2 .. " = "
 
 
@@ -196,7 +196,7 @@ end
 
 local function NumericFieldListener( event )
 
-	-- User begins editing " numericField"
+-- User begins editing " numericField"
 	if ( event.phase == "began" ) then
 
 		-- clear text field
@@ -205,11 +205,11 @@ local function NumericFieldListener( event )
 	elseif event.phase == "submitted" then
 
 
-			-- when the answer is submited( enter key is pressed ) set user input to user's answer
+-- when the answer is submited( enter key is pressed ) set user input to user's answer
 			userAnswer = tonumber(event.target.text)
 
 
-			-- if the users answer and the correct answer are the same:
+-- if the users answer and the correct answer are the same:
 			if (userAnswer == correctAnswer) then
 				correctObject.isVisible = true		
 				UpdateTime()
@@ -221,7 +221,7 @@ local function NumericFieldListener( event )
 				    -- create increasing points in the text object
 			 	pointsTextObject.text = "Points = ".. numberPoints
 
-			-- If the users answer is incorrect, Incorrect is displayed
+-- If the users answer is incorrect, Incorrect is displayed
 			else			
 				incorrectObject.isVisible = true
 				wrongSoundChannel = audio.play(wrongSound)
@@ -253,9 +253,6 @@ heart3 = display.newImageRect("Images/heart.png", 100, 100)
 heart3.x = display.contentWidth * 5 / 8
 heart3.y = display.contentHeight * 1 / 7
 
-heart4 = display.newImageRect("Images/heart.png", 100, 100)
-heart4.x = display.contentWidth * 4 / 8
-heart4.y = display.contentHeight * 1 / 7
 
 gameOver = display.newImageRect("Images/gameOver.png", display.contentWidth, display.contentHeight)
 gameOver.anchorX = 0
@@ -300,4 +297,6 @@ clockText:setFillColor( 0/255, 0/255, 153/255 )
 
 -- call the function to ask question
 AskQuestion()
+
+-- call the function to start timer
 startTimer()
