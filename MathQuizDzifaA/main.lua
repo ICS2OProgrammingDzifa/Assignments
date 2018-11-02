@@ -7,7 +7,7 @@
 -- hide the status bar
 display.setStatusBar(display.HiddenStatusBar)
 
--- sets the background colour
+-- sets the background color
 display.setDefault("background", 255/255, 229/255,  255/255)
 
 ----------------------------------------------------------------------------------------++=
@@ -38,7 +38,7 @@ local incorrectObject
 local incorrectAnswer
 local randomOperater
 local numberPoints = 0
-local youWin
+local YouWin
 local CheckPoints
 
 
@@ -52,6 +52,9 @@ local wrongSound = audio.loadSound( "Sounds/wrongSound.mp3" ) -- Setting a varia
 local wrongSoundChannel
 local gameSound = audio.loadSound("Sounds/game.mp3")
 local gameSoundChannel 
+local WinSound = audio.loadSound("Sounds/Win.mp3")
+local WinSoundChannel 
+
 
 ---------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -66,20 +69,20 @@ local function UpdateHearts()
    			heart3.isVisible = true
    			
 
--- If lives are 2 then display 2 hearts and make one heart disapear
+-- If lives are 2 then display 2 hearts and make one heart disappear
    		elseif (lives == 2) then
    			heart1.isVisible = true
    			heart2.isVisible = true
    			heart3.isVisible = false
 
--- If lives are 1 then display 1 hearts and make two hearts disapear
+-- If lives are 1 then display 1 hearts and make two hearts disappear
    		elseif (lives == 1) then
    			heart1.isVisible = true
    			heart2.isVisible = false
    			heart3.isVisible = false
    			
 
--- If lives are 0 then make all the hearts disapear
+-- If lives are 0 then make all the hearts disappear
    		elseif (lives == 0) then
    			heart1.isVisible = false
    			heart2.isVisible = false
@@ -105,6 +108,7 @@ local function CheckPoints( )
  if (numberOfPoints == 5) then
 -- display the you win screen
   youWin.isVisible = true
+
  end
 end
   
@@ -135,44 +139,49 @@ end
 
 local function AskQuestion()
 -- generate 2 random numbers between a max. and a min. number
-	randomOperator = math.random(1,4)
+	randomOperator = math.random(1,5)
 	randomNumber1 = math.random(1,20)
 	randomNumber2 = math.random(1,20)
 	randomNumber3 = math.random(1,10)
 	randomNumber4 = math.random(1,100)
+	
 
-
--- if the random operater is one then do addition
+-- if the random operator is one then do addition
 	if (randomOperator == 1) then
- 		-- 
+ 		
  		correctAnswer = randomNumber1 + randomNumber2
 
 	
-		--create question text object
+--create question text object
 		questionObject.text = randomNumber1 .. " + " .. randomNumber2 .. " = "
 
 -- If it is 2 the do subtraction
 	elseif (randomOperator == 2) then
-	 	correctAnswer = randomNumber1 - randomNumber2
+	
 
---create question text object
-		questionObject.text = randomNumber1 .. " - " .. randomNumber2 .. " = "
-		if ( randomNumber1 < randomNumber2) then
-			correctAnswer = randomNumber2 - randomNumber1
-		elseif ( randomNumber2 < randomNumber1) then
-			correctAnswer = randomNumber1 - randomNumber2
-		end
+		if (randomNumber1 < randomNumber2) then
+			questionObject.text = randomNumber2 .. " - " .. randomNumber1 .. " = "
+	 	    correctAnswer = randomNumber2 - randomNumber1
+
+		else
+	 		questionObject.text = randomNumber1 .. " - " .. randomNumber2 .. " = "
+	 	    correctAnswer = randomNumber1 - randomNumber2
+
+	 	end
+		
+
+
 	elseif (randomOperator == 3) then
 	 	correctAnswer = randomNumber1 * randomNumber2
 
---create questionin text object
+		--create question in text object
 		questionObject.text = randomNumber1 .. " * " .. randomNumber2 .. " = "
 
-		elseif (randomOperator == 4) then
+	elseif (randomOperator == 4) then
 	 	correctAnswer = randomNumber1 / randomNumber2
 
 
---create questionin text object
+		--create question in text object
 		questionObject.text = randomNumber1 .. " /" .. randomNumber2 .. " = "
 
 
@@ -205,7 +214,7 @@ local function NumericFieldListener( event )
 	elseif event.phase == "submitted" then
 
 
--- when the answer is submited( enter key is pressed ) set user input to user's answer
+-- when the answer is submitted( enter key is pressed ) set user input to user's answer
 			userAnswer = tonumber(event.target.text)
 
 
@@ -253,13 +262,19 @@ heart3 = display.newImageRect("Images/heart.png", 100, 100)
 heart3.x = display.contentWidth * 5 / 8
 heart3.y = display.contentHeight * 1 / 7
 
-
+-- Display the game over screen
 gameOver = display.newImageRect("Images/gameOver.png", display.contentWidth, display.contentHeight)
 gameOver.anchorX = 0
 gameOver.anchorY = 0
 gameOver.isVisible = false
 
--- display a question and sets the colour 
+-- Display the YouWin screen
+YouWin = display.newImageRect("Images/YouWin.png", display.contentWidth, display.contentHeight)
+YouWin.anchorX = 0
+YouWin.anchorY = 0
+YouWin.isVisible = false
+
+-- display a question and sets the color 
 questionObject = display.newText( "", display.contentWidth/3, display.contentHeight/1.5, nil, 70 )
 questionObject:setTextColor(155/255, 42/255, 198/255)  
 
@@ -283,7 +298,7 @@ pointsTextObject:setTextColor(155/255, 42/255, 198/255)
 numericField = native.newTextField( display.contentWidth/1.5, display.contentHeight/1.5, 200, 200 )
 numericField.inputType = "default"
 
--- add the event listener for the numeriuc field
+-- add the event listener for the numeric field
 numericField:addEventListener("userInput", NumericFieldListener )
 
 -- add a clock
