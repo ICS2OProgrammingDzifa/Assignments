@@ -8,61 +8,43 @@
 -- hide status bar
 display.setStatusBar(display.HiddenStatusBar)
 
---Make local function
-local vampire = display.newImageRect("Images/vampire.png", 300, 200)
-
 -- global variables
 scrollSpeed = 3
 
+-- make a evil sound
+local evil = audio.loadSound("Sound/evil.mp3")
+local evilSoundChannel 
+
 -- background image with width and height
-local backgroundImage = display.newImageRect("Images/pastel.jpg", 2048, 1536)
-local cutedog = display.newImageRect("Images/cutedog.png", 300, 200)
+local backgroundImage = display.newImageRect("Images/RainbowBackground@2x.png", 2048, 1536)
+local vampire = display.newImageRect("Images/vampire.png", 300, 200)
+local Monsterfun = display.newImageRect("Images/Monsterfun.png", 300, 200)
 
--- set the initial x and y position of cutedog.
-cutedog.x = 100
-cutedog.y = display.contentHeight/3
+-- set the initial x and y position of vampire.
+vampire.x = 500
+vampire.y = display.contentHeight/2
 
-local rocketship = display.newImageRect("Images/rocketship.png", 300, 200)
-
--- set the initial x and y position of cutedog.
-rocketship.x = 600
-rocketship.y = display.contentHeight*1/3
-
--- Creat a local image for a cat
-local cat = display.newImageRect("Images/cat.png", 300, 200)
-
-
--- set the initial x and y position of cutedog.
-cat.x = 900
-cat.y = display.contentHeight*2/3
-
--- Function: MoveCuteDog
+-- set the initial x and y position of vampire.
+Monsterfun.x = 500
+Monsterfun.y = display.contentHeight/5
+evilSoundChannel = audio.play(evil)
+-- Function: MoveVampire
 -- Input: this function accepts an event listener
 -- Output: none
--- Description: This function adds the scroll speed to the x-value of the CuteDog
-local function MoveCuteDog(event)
+-- Description: This function adds the scroll speed to the x-value of the Vampire
+local function MoveVampire(event)
 	-- add the scroll speed to the x-value of the cutedog
-	cutedog.x = cutedog.x + scrollSpeed
+	vampire.x = vampire.x + scrollSpeed
 
-	print(cutedog.x)
 
-	-- change the transparency of the cutedog every time it moves
+	-- change the transparency of the vampire every time it moves
 	-- so that it fades out.
-	cutedog.alpha = cutedog.alpha + 0.01
+	vampire.alpha = vampire.alpha - 0.00000000000001
 end
 
--- MoveCuteDog will be called over and over again
-Runtime:addEventListener("enterFrame", MoveCuteDog)
+-- MoveVampire will be called over and over again
+Runtime:addEventListener("enterFrame", MoveVampire)
+
+
 
  
--- Function: MoveCat
--- Input: this function accepts an event listener
--- Output: none
--- Description: This function adds the scroll speed to the x-value of the cat
-local function MoveCat(event)
-	-- add the scroll speed to the x-value of the cat
-	cat.x = cat.x - scrollSpeed
-	-- change the transparency of the cat every time it moves
-	-- so that it fades out.
-	cat.alpha = cat.alpha - 0.00000000001
-end
