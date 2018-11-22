@@ -24,7 +24,7 @@ local Monsterfun = display.newImageRect("Images/Monsterfun.png", 300, 200)
 vampire.x = 500
 vampire.y = display.contentHeight/2
 
--- set the initial x and y position of vampire.
+-- set the initial x and y position of monsterfun.
 Monsterfun.x = 500
 Monsterfun.y = display.contentHeight/5
 evilSoundChannel = audio.play(evil)
