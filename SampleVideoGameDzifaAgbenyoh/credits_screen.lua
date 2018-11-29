@@ -1,7 +1,6 @@
 -----------------------------------------------------------------------------------------
---
 -- credits_screen.lua
--- Created by: Your Name
+-- Created by: Dzifa
 -- Special thanks to Wal Wal for helping in the design of this framework.
 -- Date: Month Day, Year
 -- Description: This is the credits page, displaying a back button to the main menu.
@@ -71,7 +70,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Creating Back Button
-    backButton = widget.newButton( 
+    backButton = widget.newButton(
     {
         -- Setting Position
         x = display.contentWidth*1/8,
@@ -181,5 +180,3 @@ scene:addEventListener( "destroy", scene )
 -----------------------------------------------------------------------------------------
 
 return scene
-
-

@@ -41,7 +41,6 @@ local scene = composer.newScene( sceneName )
 local bkg_image
 local playButton
 local creditsButton
-local playButton
 local instructionsButton
 
 
@@ -59,6 +58,13 @@ end
 -- Creating Transition to Level1 Screen
 local function Level1ScreenTransition( )
     composer.gotoScene( "level1_screen", {effect = "zoomInOutFade", time = 1000})
+end    
+
+-----------------------------------------------------------------------------------------
+
+-- Creating Transition to Level1 Screen
+local function InstructionsScreenTransition( )
+    composer.gotoScene( "Instructions_screen", {effect = "zoomInOutFade", time = 1000})
 end    
 
 -- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
@@ -139,7 +145,7 @@ function scene:create( event )
         {
             -- Set its position on the screen relative to the screen size
             x = display.contentWidth*3.9/8,
-            y = display.contentHeight*6.5/8,
+            y = display.contentHeight*6.8/8,
             width = 200,
             height = 200,
 
@@ -156,8 +162,7 @@ function scene:create( event )
     sceneGroup:insert( playButton )
     sceneGroup:insert( creditsButton )
     sceneGroup:insert( InstructionsButton )
-    
-    -- INSERT INSTRUCTIONS BUTTON INTO SCENE GROUP
+
 
 end -- function scene:create( event )   
 
