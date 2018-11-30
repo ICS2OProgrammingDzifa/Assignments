@@ -68,7 +68,6 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
     -- BUTTON WIDGETS
     -----------------------------------------------------------------------------------------
-
     -- Creating Back Button
     backButton = widget.newButton(
     {
@@ -96,6 +95,7 @@ function scene:create( event )
     
 end --function scene:create( event )
 
+    
 -----------------------------------------------------------------------------------------
 
 -- The function called when the scene is issued to appear on screen
